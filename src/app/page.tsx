@@ -18,10 +18,10 @@ export default function Home() {
             <Link href="#pricing" className="hover:text-slate-900 transition-colors">Pricing</Link>
           </div>
           <div className="flex items-center gap-4 text-sm font-medium">
-            <Link href="/login" className="hidden sm:block text-slate-600 hover:text-slate-900 transition-colors">
+            <Link href="/auth" className="hidden sm:block text-slate-600 hover:text-slate-900 transition-colors">
               Sign In
             </Link>
-            <Link href="/signup" className="bg-[#0055ff] hover:bg-[#0044cc] text-white px-5 py-2 rounded-full transition-all flex items-center gap-1 shadow-sm shadow-blue-500/20">
+            <Link href="/auth" className="bg-[#0055ff] hover:bg-[#0044cc] text-white px-5 py-2 rounded-full transition-all flex items-center gap-1 shadow-sm shadow-blue-500/20">
               Get Started
             </Link>
           </div>
@@ -39,7 +39,7 @@ export default function Home() {
             AI-powered. LaTeX-precise. Effortlessly professional. The editorial workspace for your career.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/signup" className="inline-flex justify-center items-center gap-2 bg-[#0055ff] hover:bg-[#0044cc] text-white px-8 py-3.5 rounded-full font-medium text-lg transition-all shadow-md shadow-blue-500/20">
+            <Link href="/auth" className="inline-flex justify-center items-center gap-2 bg-[#0055ff] hover:bg-[#0044cc] text-white px-8 py-3.5 rounded-full font-medium text-lg transition-all shadow-md shadow-blue-500/20">
               Get Started Free
             </Link>
             <Link href="#templates" className="inline-flex justify-center items-center gap-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 px-8 py-3.5 rounded-full font-medium text-lg transition-all shadow-sm">
@@ -192,7 +192,7 @@ export default function Home() {
             <p className="text-xl md:text-2xl text-blue-100 max-w-2xl font-medium">
               Join thousands of job seekers who landed their dream roles at Apple, Google, and Meta using Digital Atelier.
             </p>
-            <Link href="/signup" className="inline-flex justify-center items-center bg-white hover:bg-slate-50 text-[#0055ff] px-10 py-4 rounded-full font-bold text-xl transition-all shadow-xl hover:scale-105 active:scale-95 border border-white/50">
+            <Link href="/auth" className="inline-flex justify-center items-center bg-white hover:bg-slate-50 text-[#0055ff] px-10 py-4 rounded-full font-bold text-xl transition-all shadow-xl hover:scale-105 active:scale-95 border border-white/50">
               Get Started Now
             </Link>
           </div>
