@@ -1,12 +1,51 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
-import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { loginWithGoogle, loginWithEmail, registerWithEmail } from "@/backend/firebase/auth.service";
 
 export default function AuthPage() {
   const [isSignIn, setIsSignIn] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const router = useRouter();
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setIsLoading(true);
+      setErrorMsg("");
+      await loginWithGoogle();
+      router.push("/");
+    } catch (err: any) {
+      setErrorMsg(err.message || "Failed to sign in with Google");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) return setErrorMsg("Please fill in all fields.");
+    try {
+      setIsLoading(true);
+      setErrorMsg("");
+      if (isSignIn) {
+        await loginWithEmail(email, password);
+      } else {
+        await registerWithEmail(email, password);
+      }
+      router.push("/");
+    } catch (err: any) {
+      setErrorMsg(err.message || "Authentication failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center p-4 relative overflow-hidden font-sans">
@@ -42,8 +81,20 @@ export default function AuthPage() {
           </button>
         </div>
 
+        {/* Error Message */}
+        {errorMsg && (
+          <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg text-center font-medium">
+            {errorMsg}
+          </div>
+        )}
+
         {/* Google Auth Button */}
-        <button className="w-full flex items-center justify-center gap-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium py-3 rounded-full transition-colors mb-7 text-sm shadow-sm">
+        <button 
+          type="button"
+          onClick={handleGoogleSignIn}
+          disabled={isLoading}
+          className="w-full flex items-center justify-center gap-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium py-3 rounded-full transition-colors mb-7 text-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+        >
           <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24">
             <path
               fill="#4285F4"
@@ -73,11 +124,13 @@ export default function AuthPage() {
         </div>
 
         {/* Form fields */}
-        <form className="space-y-4 flex-1 flex flex-col" onSubmit={(e) => e.preventDefault()}>
+        <form className="space-y-4 flex-1 flex flex-col" onSubmit={handleSubmit}>
           {!isSignIn && (
             <div>
                <input 
                 type="text" 
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Full Name" 
                 className="w-full bg-slate-100/80 hover:bg-slate-100 border-none rounded-full px-5 py-3.5 text-sm text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:ring-[#0066ff]/20 focus:bg-white transition-all outline-none"
               />
@@ -87,7 +140,10 @@ export default function AuthPage() {
           <div>
             <input 
               type="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address" 
+              required
               className="w-full bg-slate-100/80 hover:bg-slate-100 border-none rounded-full px-5 py-3.5 text-sm text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:ring-[#0066ff]/20 focus:bg-white transition-all outline-none"
             />
           </div>
@@ -95,7 +151,10 @@ export default function AuthPage() {
           <div className="relative">
             <input 
               type={showPassword ? "text" : "password"} 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password" 
+              required
               className="w-full bg-slate-100/80 hover:bg-slate-100 border-none rounded-full pl-5 pr-12 py-3.5 text-sm text-slate-800 placeholder:text-slate-500 focus:ring-2 focus:ring-[#0066ff]/20 focus:bg-white transition-all outline-none"
             />
             <button 
@@ -117,8 +176,10 @@ export default function AuthPage() {
 
           <button 
             type="submit" 
-            className="w-full bg-[#0066ff] hover:bg-[#0055cc] text-white font-semibold py-3.5 rounded-full transition-all mt-4"
+            disabled={isLoading}
+            className="w-full flex items-center justify-center gap-2 bg-[#0066ff] hover:bg-[#0055cc] text-white font-semibold py-3.5 rounded-full transition-all mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
           >
+            {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
             {isSignIn ? "Sign In" : "Sign Up"}
           </button>
         </form>
