@@ -18,7 +18,7 @@ import {
 const mainNavItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dashboard/templates", label: "Templates", icon: FileText },
-  { href: "/dashboard/editor", label: "Editor", icon: PenTool },
+  { href: "/editor", label: "Editor", icon: PenTool },
   { href: "/dashboard/documents", label: "Documents", icon: Folder },
   { href: "/dashboard/ai-copilot", label: "AI Copilot", icon: Bot },
   { href: "/dashboard/profile", label: "Profile", icon: User },
