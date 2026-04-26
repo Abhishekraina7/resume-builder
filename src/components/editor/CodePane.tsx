@@ -2,7 +2,11 @@
 
 import { FileText, Sparkles } from "lucide-react";
 
-export function CodePane() {
+interface CodePaneProps {
+  onOpenAI: () => void;
+}
+
+export function CodePane({ onOpenAI }: CodePaneProps) {
   const codeLines = [
     { num: 1, text: "", type: "" },
     { num: 2, text: "\\documentclass[letterpaper,11pt]{article}", type: "keyword" },
@@ -88,7 +92,10 @@ export function CodePane() {
       </div>
 
       {/* Ask AI Floating Button */}
-      <button className="absolute bottom-6 right-6 bg-[#0066ff] hover:bg-[#0055cc] text-white px-5 py-3 rounded-full shadow-lg shadow-blue-500/20 flex items-center gap-2 font-bold transition-all hover:scale-105">
+      <button 
+        onClick={onOpenAI}
+        className="absolute bottom-6 right-6 bg-[#0066ff] hover:bg-[#0055cc] text-white px-5 py-3 rounded-full shadow-lg shadow-blue-500/20 flex items-center gap-2 font-bold transition-all hover:scale-105"
+      >
         <Sparkles className="w-5 h-5" />
         Ask AI
       </button>

@@ -4,9 +4,12 @@ import Link from "next/link";
 import { AuthGuard } from "@/components/auth/AuthGuard";
 import { CodePane } from "@/components/editor/CodePane";
 import { PreviewPane } from "@/components/editor/PreviewPane";
+import { AICopilotPane } from "@/components/editor/AICopilotPane";
 import { ArrowLeft, History, Settings, Share2 } from "lucide-react";
+import { useState } from "react";
 
 export default function EditorPage() {
+  const [isAIOpen, setIsAIOpen] = useState(false);
   return (
     <AuthGuard>
       <div className="h-screen w-full flex flex-col overflow-hidden bg-white font-sans">
@@ -58,16 +61,21 @@ export default function EditorPage() {
         </header>
 
         {/* Split Pane Area */}
-        <main className="flex-1 flex overflow-hidden">
+        <main className="flex-1 flex overflow-hidden relative">
           {/* Left Code Editor (50%) */}
           <div className="w-1/2 h-full flex flex-col border-r border-[#2d2d2d] bg-[#1e1e1e]">
-            <CodePane />
+            <CodePane onOpenAI={() => setIsAIOpen(true)} />
           </div>
           
           {/* Right PDF Preview (50%) */}
           <div className="w-1/2 h-full flex flex-col bg-[#f8fafc]">
             <PreviewPane />
           </div>
+
+          {/* AI Copilot Slide-over */}
+          {isAIOpen && (
+            <AICopilotPane onClose={() => setIsAIOpen(false)} />
+          )}
         </main>
       </div>
     </AuthGuard>
