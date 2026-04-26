@@ -20,7 +20,7 @@ export default function AuthPage() {
       setIsLoading(true);
       setErrorMsg("");
       await loginWithGoogle();
-      router.push("/");
+      router.push("/dashboard");
     } catch (err: any) {
       setErrorMsg(err.message || "Failed to sign in with Google");
     } finally {
@@ -39,7 +39,7 @@ export default function AuthPage() {
       } else {
         await registerWithEmail(email, password);
       }
-      router.push("/");
+      router.push("/dashboard");
     } catch (err: any) {
       setErrorMsg(err.message || "Authentication failed");
     } finally {
