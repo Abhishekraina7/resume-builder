@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { logout } from "@/backend/firebase/auth.service";
 import { 
@@ -26,6 +26,7 @@ const mainNavItems = [
 
 export function DashboardSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { user } = useAuth();
 
   return (
@@ -78,7 +79,11 @@ export function DashboardSidebar() {
           Settings
         </Link>
         <button 
-          onClick={logout}
+          onClick={() => {
+            // Navigate cleanly to the landing page, then perform sign out
+            router.push("/");
+            setTimeout(logout, 150);
+          }}
           className="flex items-center gap-3 px-4 py-3 w-full text-left rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 transition-all"
         >
           <LogOut className="w-4 h-4" />
