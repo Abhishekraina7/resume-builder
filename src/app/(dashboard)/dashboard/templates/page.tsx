@@ -1,8 +1,33 @@
 "use client";
 
-import { useState } from "react";
-import { Check } from "lucide-react";
+import { useState, useEffect, Suspense } from "react";
+import { Check, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+
+function TemplateToast() {
+  const searchParams = useSearchParams();
+  const [show, setShow] = useState(false);
+  
+  useEffect(() => {
+    if (searchParams.get("action") === "new-resume") {
+      setShow(true);
+      const timer = setTimeout(() => setShow(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
+
+  if (!show) return null;
+
+  return (
+    <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-8 fade-in duration-500">
+       <div className="bg-[#0066ff] text-white px-6 py-3 rounded-full shadow-xl shadow-blue-500/30 font-semibold flex items-center gap-3">
+         <Sparkles className="w-5 h-5" />
+         Choose a template to get started!
+       </div>
+    </div>
+  );
+}
 
 const filters = ["All", "Minimal", "Modern", "Academic", "Creative", "ATS-Optimized"];
 
@@ -152,6 +177,9 @@ export default function TemplatesPage() {
 
   return (
     <div className="max-w-5xl mx-auto w-full pt-4 pb-12">
+      <Suspense fallback={null}>
+        <TemplateToast />
+      </Suspense>
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">Templates</h1>

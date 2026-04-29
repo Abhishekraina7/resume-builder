@@ -1,14 +1,17 @@
 "use client";
 
 import { Plus, FileUp, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function QuickActions() {
+  const router = useRouter();
   const actions = [
     {
       title: "New Resume",
       description: "Create a fresh resume using our high-end editorial templates.",
       icon: Plus,
       color: "bg-[#0066ff]",
+      href: "/dashboard/templates?action=new-resume",
     },
     {
       title: "Upload Document",
@@ -31,6 +34,7 @@ export function QuickActions() {
         return (
           <div 
             key={idx} 
+            onClick={() => action.href && router.push(action.href)}
             className="bg-white border border-slate-100 rounded-[28px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:border-slate-200 transition-all cursor-pointer group"
           >
             <div className={`w-12 h-12 rounded-full ${action.color} text-white flex items-center justify-center mb-6 group-hover:scale-105 transition-transform`}>
