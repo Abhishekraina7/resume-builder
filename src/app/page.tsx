@@ -73,17 +73,17 @@ export default function Home() {
               ))}
             </div>
             <p className="text-sm font-medium text-slate-600">
-              Trusted by 10,000+ professionals
+              Creating Trust
             </p>
           </div>
         </div>
-        
+
         <div className="flex-1 relative w-full flex justify-center md:justify-end">
           <div className="relative w-full max-w-[600px] aspect-[4/3] transform lg:translate-x-12">
-            <Image 
-              src="/hero_editor_mockup.png" 
-              alt="Editor interface mockup" 
-              fill 
+            <Image
+              src="/hero_editor_mockup.png"
+              alt="Editor interface mockup"
+              fill
               className="object-contain drop-shadow-2xl scale-110 md:scale-125"
               priority
             />
@@ -113,10 +113,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
           <div className="flex-1 w-full flex justify-center bg-slate-50 rounded-[2rem] p-8 md:p-12 border border-slate-100 relative">
             <div className="w-full max-w-[480px] aspect-square relative">
-              <Image 
-                src="/ai_advisor_mockup.png" 
-                alt="AI Advisor Interface" 
-                fill 
+              <Image
+                src="/ai_advisor_mockup.png"
+                alt="AI Advisor Interface"
+                fill
                 className="object-contain"
               />
             </div>
@@ -137,7 +137,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center gap-16">
           <div className="flex-1 space-y-6">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900">
-              Full LaTeX Power, <br/> Zero Setup
+              Full LaTeX Power, <br /> Zero Setup
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed">
               Experience the typesetting precision of LaTeX without the steep learning curve. Our cloud-based editor handles all the compilation in the background. Use professional macros or edit raw code—the choice is yours.
@@ -157,10 +157,10 @@ export default function Home() {
           </div>
           <div className="flex-1 w-full flex justify-center relative">
             <div className="w-full max-w-[600px] aspect-[4/3] relative">
-              <Image 
-                src="/latex_editor_dark.png" 
-                alt="LaTeX dark mode editor" 
-                fill 
+              <Image
+                src="/latex_editor_dark.png"
+                alt="LaTeX dark mode editor"
+                fill
                 className="object-contain drop-shadow-2xl"
               />
             </div>
@@ -173,10 +173,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
           <div className="flex-1 w-full flex justify-center relative">
             <div className="w-full max-w-[500px] aspect-square relative transform -translate-x-4">
-               <Image 
-                src="/template_gallery_mockup.png" 
-                alt="Beautiful resume templates" 
-                fill 
+              <Image
+                src="/template_gallery_mockup.png"
+                alt="Beautiful resume templates"
+                fill
                 className="object-contain drop-shadow-xl saturate-110"
               />
             </div>
@@ -201,8 +201,8 @@ export default function Home() {
       <section className="py-24 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto bg-[#0055ff] rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl shadow-blue-500/20">
           {/* Decorative grid background overlay */}
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent pointer-events-none mix-blend-overlay border-[1px] border-white/20" style={{backgroundSize: '40px 40px', backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)'}}></div>
-          
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent pointer-events-none mix-blend-overlay border-[1px] border-white/20" style={{ backgroundSize: '40px 40px', backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)' }}></div>
+
           <div className="relative z-10 space-y-8 flex flex-col items-center">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl leading-tight">
               Ready to craft your masterpiece?

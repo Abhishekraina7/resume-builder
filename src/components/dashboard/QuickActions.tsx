@@ -2,9 +2,12 @@
 
 import { Plus, FileUp, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { UploadModal } from "./UploadModal";
 
 export function QuickActions() {
   const router = useRouter();
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const actions = [
     {
       title: "New Resume",
@@ -18,6 +21,7 @@ export function QuickActions() {
       description: "Import your existing PDF or DOCX file for AI analysis and styling.",
       icon: FileUp,
       color: "bg-[#0066ff]",
+      onClick: () => setIsUploadModalOpen(true),
     },
     {
       title: "Use AI Copilot",
@@ -34,7 +38,10 @@ export function QuickActions() {
         return (
           <div 
             key={idx} 
-            onClick={() => action.href && router.push(action.href)}
+            onClick={() => {
+              if (action.href) router.push(action.href);
+              if ('onClick' in action && typeof action.onClick === 'function') action.onClick();
+            }}
             className="bg-white border border-slate-100 rounded-[28px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:border-slate-200 transition-all cursor-pointer group"
           >
             <div className={`w-12 h-12 rounded-full ${action.color} text-white flex items-center justify-center mb-6 group-hover:scale-105 transition-transform`}>
@@ -47,6 +54,13 @@ export function QuickActions() {
           </div>
         );
       })}
+      <UploadModal 
+        isOpen={isUploadModalOpen} 
+        onClose={() => setIsUploadModalOpen(false)} 
+        onUploadComplete={() => {
+          window.dispatchEvent(new Event("documentUploaded"));
+        }} 
+      />
     </div>
   );
 }

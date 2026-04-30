@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { logout } from "@/backend/firebase/auth.service";
+import { logout } from "@/backend/supabase/auth.service";
 import { 
   LayoutDashboard, 
   FileText, 
@@ -39,7 +39,7 @@ export function DashboardSidebar() {
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold text-slate-900 truncate text-sm flex items-center gap-2">
-              {user?.displayName || "Arjun Sharma"}
+              {user?.user_metadata?.full_name || user?.user_metadata?.name || "Arjun Sharma"}
               <span className="bg-[#0066ff] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">PRO</span>
             </h3>
             <p className="text-xs text-slate-500 truncate">The Digital Atelier</p>

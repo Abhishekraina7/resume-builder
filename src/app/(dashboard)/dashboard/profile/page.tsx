@@ -6,7 +6,7 @@ import { Copy, Navigation, Plus, FileText, Pencil, Crown, FileCode2, ExternalLin
 export default function ProfilePage() {
   const { user } = useAuth();
 
-  const fullName = user?.displayName || "Arjun Sharma";
+  const fullName = user?.user_metadata?.full_name || user?.user_metadata?.name || "Arjun Sharma";
   const email = user?.email || "arjun@email.com";
   const initials = fullName
     .split(" ")

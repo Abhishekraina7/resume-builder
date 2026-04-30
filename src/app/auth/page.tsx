@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import { loginWithGoogle, loginWithEmail, registerWithEmail } from "@/backend/firebase/auth.service";
+import { loginWithGoogle, loginWithEmail, registerWithEmail } from "@/backend/supabase/auth.service";
 
 export default function AuthPage() {
   const [isSignIn, setIsSignIn] = useState(true);
