@@ -7,7 +7,7 @@ import { UploadedDocuments } from "@/components/dashboard/UploadedDocuments";
 
 export default function DashboardPage() {
   const { user } = useAuth();
-  const firstName = user?.displayName?.split(" ")[0] || "Arjun";
+  const firstName = user?.email?.split("@")[0] || "Arjun";
 
   return (
     <div className="max-w-5xl mx-auto w-full pt-4">

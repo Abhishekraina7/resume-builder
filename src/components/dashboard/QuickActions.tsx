@@ -28,6 +28,7 @@ export function QuickActions() {
       description: "Generate targeted bullet points based on a specific job description.",
       icon: Sparkles,
       color: "bg-[#0066ff]",
+      href: "/dashboard/ai-copilot",
     },
   ];
 
