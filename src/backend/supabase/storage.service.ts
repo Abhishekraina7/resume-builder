@@ -1,8 +1,8 @@
 import { supabase } from "./supabase";
 
 export interface DocumentMetadata {
-  id?: string;
-  userId: string;
+  id?: string | number;
+  userId: string | number;
   fileName: string;
   fileSize: number;
   fileType: string;
@@ -23,7 +23,7 @@ export const uploadDocument = (
 
     try {
       const uniqueFileName = `${Date.now()}_${file.name}`;
-      const filePath = `${userId}/${uniqueFileName}`;
+      const filePath = `private/${userId}/${file.name}`;
 
       // Simulate progress for smooth UX 
       let progress = 0;
