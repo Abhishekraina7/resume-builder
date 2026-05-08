@@ -235,12 +235,12 @@ export default function TemplatesPage() {
                   >
                     Preview
                   </button>
-                  <button 
-                    onClick={() => setSelectedTemplate(template.id)}
+                  <Link 
+                    href={`/editor?template=${template.id}`}
                     className="px-6 py-2.5 rounded-full bg-[#0066ff] hover:bg-[#0055cc] text-white font-semibold text-sm shadow-xl shadow-[#0066ff]/20 transition-all hover:scale-105"
                   >
                     Use Template
-                  </button>
+                  </Link>
                 </div>
               </div>
 

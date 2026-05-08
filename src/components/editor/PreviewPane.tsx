@@ -1,10 +1,16 @@
 "use client";
 
-import { ZoomIn, ZoomOut, Maximize } from "lucide-react";
+import { ZoomIn, ZoomOut, Maximize, Loader2, AlertCircle } from "lucide-react";
 
-export function PreviewPane() {
+interface PreviewPaneProps {
+  pdfUrl: string | null;
+  isCompiling: boolean;
+  error: string | null;
+}
+
+export function PreviewPane({ pdfUrl, isCompiling, error }: PreviewPaneProps) {
   return (
-    <div className="flex-1 flex flex-col bg-[#f8fafc] relative">
+    <div className="flex-1 flex flex-col bg-[#f8fafc] relative h-full">
       {/* Preview Toolbar */}
       <div className="h-12 border-b border-slate-200 flex items-center justify-between px-6 text-sm text-slate-600 font-medium bg-white shrink-0">
         <div className="flex items-center gap-4">
@@ -19,81 +25,39 @@ export function PreviewPane() {
       </div>
 
       {/* PDF View Container */}
-      <div className="flex-1 overflow-y-auto p-8 flex justify-center pb-24">
-        {/* The "Paper" Document */}
-        <div className="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.08)] w-full max-w-[800px] aspect-[1/1.4] p-12 lg:p-16 text-slate-900 font-sans cursor-text shrink-0">
-          
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold tracking-widest mb-2">ALEX RIVERA</h1>
-            <p className="text-xs text-slate-500 tracking-widest font-semibold">
-              SAN FRANCISCO, CA • (555) 000-0000 • ALEX@ATELIER.DEV
-            </p>
+      <div className="flex-1 overflow-hidden relative bg-[#e2e8f0] flex justify-center p-4">
+        {/* Error State */}
+        {error && !isCompiling && (
+          <div className="absolute inset-0 z-20 bg-white/90 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center">
+            <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
+            <h3 className="text-lg font-bold text-slate-900 mb-2">Compilation Failed</h3>
+            <p className="text-slate-600 max-w-md">{error}</p>
           </div>
+        )}
 
-          {/* Experience Section */}
-          <div className="mb-6">
-            <h2 className="text-sm font-bold tracking-widest border-b-2 border-slate-900 pb-2 mb-4">
-              EXPERIENCE
-            </h2>
-            
-            <div className="mb-5">
-              <div className="flex justify-between items-end mb-1">
-                <h3 className="font-bold text-sm">DIGITAL ATELIER</h3>
-                <span className="text-xs text-slate-500 italic">Jan 2022 – Present</span>
-              </div>
-              <p className="text-sm italic mb-2">Senior Software Engineer</p>
-              <ul className="list-disc pl-5 text-xs space-y-1.5 text-slate-700 leading-relaxed marker:text-slate-400">
-                <li>Architected the core LaTeX compilation engine using WebAssembly, reducing build times by 40%.</li>
-                <li>Implemented a collaborative editing environment supporting up to 50 concurrent users.</li>
-                <li>Mentored a team of 5 junior engineers and established modern CI/CD practices.</li>
-              </ul>
-            </div>
-
-            <div className="mb-4">
-              <div className="flex justify-between items-end mb-1">
-                <h3 className="font-bold text-sm">TECHFLOW SYSTEMS</h3>
-                <span className="text-xs text-slate-500 italic">June 2019 – Dec 2021</span>
-              </div>
-              <p className="text-sm italic mb-2">Full Stack Developer</p>
-              <ul className="list-disc pl-5 text-xs space-y-1.5 text-slate-700 leading-relaxed marker:text-slate-400">
-                <li>Developed microservices in Node.js serving 1M+ daily active users.</li>
-                <li>Redesigned the internal dashboard using React, improving operational efficiency by 25%.</li>
-              </ul>
+        {/* Loading Overlay */}
+        {isCompiling && (
+          <div className="absolute inset-0 z-20 bg-slate-900/10 backdrop-blur-sm flex flex-col items-center justify-center">
+            <div className="bg-white p-6 rounded-2xl shadow-xl flex flex-col items-center gap-3">
+              <Loader2 className="w-8 h-8 text-[#0066ff] animate-spin" />
+              <p className="text-sm font-bold text-slate-700">Compiling LaTeX...</p>
             </div>
           </div>
+        )}
 
-          {/* Education Section */}
-          <div className="mb-6">
-            <h2 className="text-sm font-bold tracking-widest border-b-2 border-slate-900 pb-2 mb-4">
-              EDUCATION
-            </h2>
-            <div className="flex justify-between items-end mb-1">
-              <h3 className="font-bold text-sm">UNIVERSITY OF CALIFORNIA, BERKELEY</h3>
-              <span className="text-xs text-slate-500 italic">Class of 2019</span>
-            </div>
-            <p className="text-xs text-slate-600">B.S. in Computer Science</p>
+        {/* The PDF Document */}
+        {pdfUrl ? (
+          <iframe 
+            src={pdfUrl} 
+            className="w-full h-full max-w-[850px] shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-lg bg-white"
+            title="Resume PDF Preview"
+          />
+        ) : (
+          <div className="w-full h-full max-w-[850px] shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-lg bg-white flex items-center justify-center text-slate-400 font-medium flex-col gap-2">
+            <p>No PDF generated yet.</p>
+            <p className="text-xs">Click "Compile" or press Ctrl+S to render.</p>
           </div>
-
-          {/* Technical Skills Section */}
-          <div>
-            <h2 className="text-sm font-bold tracking-widest border-b-2 border-slate-900 pb-2 mb-4">
-              TECHNICAL SKILLS
-            </h2>
-            <div className="text-xs space-y-2 text-slate-700">
-              <p><span className="font-bold">Languages:</span> JavaScript (ES6+), TypeScript, LaTeX, C++, Rust, Python</p>
-              <p><span className="font-bold">Frameworks:</span> React, Node.js, Tailwind CSS, WebAssembly, Express</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Floating Pill */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
-        <div className="bg-white border border-slate-200 shadow-lg rounded-full px-4 py-2 flex items-center gap-2 text-xs font-semibold text-slate-700">
-          <div className="w-2 h-2 rounded-full bg-[#0066ff]"></div>
-          Auto-compiled 2s ago
-        </div>
+        )}
       </div>
     </div>
   );
