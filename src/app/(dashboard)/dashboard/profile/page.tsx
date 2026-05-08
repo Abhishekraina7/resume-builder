@@ -10,14 +10,14 @@ export default function ProfilePage() {
   const email = user?.email || "arjun@email.com";
   const initials = fullName
     .split(" ")
-    .map((n) => n[0])
+    .map((n: string) => n[0])
     .join("")
     .substring(0, 2)
     .toUpperCase();
 
   return (
     <div className="max-w-5xl mx-auto w-full pb-16 font-sans">
-      
+
       {/* Top Tabs */}
       <div className="flex items-center gap-8 border-b border-slate-200 mb-12">
         <button className="pb-4 pt-2 text-sm font-bold text-slate-900 border-b-2 border-[#0066ff]">
@@ -42,10 +42,10 @@ export default function ProfilePage() {
             <Pencil className="w-4 h-4" />
           </button>
         </div>
-        
+
         <h1 className="text-2xl font-extrabold text-slate-900 mb-1">{fullName}</h1>
         <p className="text-slate-500 font-medium">{email}</p>
-        
+
         <div className="mt-4 flex items-center gap-1.5 px-3 py-1 bg-[#f0f5ff] text-[#0066ff] rounded-full text-[11px] font-extrabold uppercase tracking-widest">
           <Crown className="w-3.5 h-3.5" />
           PRO PLAN
@@ -61,7 +61,7 @@ export default function ProfilePage() {
             Edit
           </button>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <p className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1.5">Full Name</p>
@@ -80,7 +80,7 @@ export default function ProfilePage() {
 
       {/* Split Cards Layer */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-        
+
         {/* Generated Resumes */}
         <div className="bg-white rounded-[32px] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] p-8 flex flex-col h-full hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all">
           <div className="flex justify-between items-center mb-6">
@@ -92,19 +92,19 @@ export default function ProfilePage() {
 
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-4 group cursor-pointer">
-               <div className="w-12 h-14 bg-[#f1f5f9] rounded-xl shrink-0 group-hover:bg-[#e2e8f0] transition-colors"></div>
-               <div>
-                 <h3 className="font-bold text-sm text-slate-900 mb-0.5">Software Engineer - 2024</h3>
-                 <p className="text-[11px] font-medium text-slate-400">Modified Oct 12, 2023</p>
-               </div>
+              <div className="w-12 h-14 bg-[#f1f5f9] rounded-xl shrink-0 group-hover:bg-[#e2e8f0] transition-colors"></div>
+              <div>
+                <h3 className="font-bold text-sm text-slate-900 mb-0.5">Software Engineer - 2024</h3>
+                <p className="text-[11px] font-medium text-slate-400">Modified Oct 12, 2023</p>
+              </div>
             </div>
-            
+
             <div className="flex items-center gap-4 group cursor-pointer">
-               <div className="w-12 h-14 bg-[#f1f5f9] rounded-xl shrink-0 group-hover:bg-[#e2e8f0] transition-colors"></div>
-               <div>
-                 <h3 className="font-bold text-sm text-slate-900 mb-0.5">Senior Product Designer</h3>
-                 <p className="text-[11px] font-medium text-slate-400">Modified Sep 28, 2023</p>
-               </div>
+              <div className="w-12 h-14 bg-[#f1f5f9] rounded-xl shrink-0 group-hover:bg-[#e2e8f0] transition-colors"></div>
+              <div>
+                <h3 className="font-bold text-sm text-slate-900 mb-0.5">Senior Product Designer</h3>
+                <p className="text-[11px] font-medium text-slate-400">Modified Sep 28, 2023</p>
+              </div>
             </div>
           </div>
         </div>
@@ -119,34 +119,34 @@ export default function ProfilePage() {
           </div>
 
           <div className="flex flex-col gap-5">
-             <div className="flex items-center gap-4 group cursor-pointer">
-               <div className="w-10 h-10 rounded-full bg-[#fef2f2] flex items-center justify-center shrink-0">
-                  <FileText className="w-4 h-4 text-red-500" />
-               </div>
-               <div>
-                 <h3 className="font-bold text-sm text-slate-900 mb-0.5">Portfolio_v2.pdf</h3>
-                 <p className="text-[11px] font-medium text-slate-400">Oct 05 • 2.4 MB</p>
-               </div>
-            </div>
-            
             <div className="flex items-center gap-4 group cursor-pointer">
-               <div className="w-10 h-10 rounded-full bg-[#f0f5ff] flex items-center justify-center shrink-0">
-                  <FileText className="w-4 h-4 text-[#0066ff]" />
-               </div>
-               <div>
-                 <h3 className="font-bold text-sm text-slate-900 mb-0.5">Recommendation...</h3>
-                 <p className="text-[11px] font-medium text-slate-400">Sep 30 • 45 KB</p>
-               </div>
+              <div className="w-10 h-10 rounded-full bg-[#fef2f2] flex items-center justify-center shrink-0">
+                <FileText className="w-4 h-4 text-red-500" />
+              </div>
+              <div>
+                <h3 className="font-bold text-sm text-slate-900 mb-0.5">Portfolio_v2.pdf</h3>
+                <p className="text-[11px] font-medium text-slate-400">Oct 05 • 2.4 MB</p>
+              </div>
             </div>
 
             <div className="flex items-center gap-4 group cursor-pointer">
-               <div className="w-10 h-10 rounded-full bg-[#fef2f2] flex items-center justify-center shrink-0">
-                  <FileText className="w-4 h-4 text-red-500" />
-               </div>
-               <div>
-                 <h3 className="font-bold text-sm text-slate-900 mb-0.5">Cert_Cloud.pdf</h3>
-                 <p className="text-[11px] font-medium text-slate-400">Aug 12 • 1.1 MB</p>
-               </div>
+              <div className="w-10 h-10 rounded-full bg-[#f0f5ff] flex items-center justify-center shrink-0">
+                <FileText className="w-4 h-4 text-[#0066ff]" />
+              </div>
+              <div>
+                <h3 className="font-bold text-sm text-slate-900 mb-0.5">Recommendation...</h3>
+                <p className="text-[11px] font-medium text-slate-400">Sep 30 • 45 KB</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 group cursor-pointer">
+              <div className="w-10 h-10 rounded-full bg-[#fef2f2] flex items-center justify-center shrink-0">
+                <FileText className="w-4 h-4 text-red-500" />
+              </div>
+              <div>
+                <h3 className="font-bold text-sm text-slate-900 mb-0.5">Cert_Cloud.pdf</h3>
+                <p className="text-[11px] font-medium text-slate-400">Aug 12 • 1.1 MB</p>
+              </div>
             </div>
           </div>
         </div>
