@@ -5,53 +5,66 @@ export async function POST(request: Request) {
     const { latexCode } = await request.json();
 
     if (!latexCode) {
+      return NextResponse.json({ error: "LaTeX code is required" }, { status: 400 });
+    }
+
+    // Prepare FormData exactly how TeXLive.net expects a file upload form submission
+    const formData = new FormData();
+    
+    // We MUST wrap the string in a Blob so it's treated as a file upload, 
+    // otherwise the older CGI script throws "Bad form type: no main document"
+    const fileBlob = new Blob([latexCode], { type: "application/x-tex" });
+    formData.append("filecontents[]", fileBlob, "resume.tex");
+    
+    formData.append("filename[]", "resume.tex");
+    formData.append("engine", "pdflatex");
+    formData.append("return", "pdf");
+
+    // Send to TeXLive.net
+    const response = await fetch("https://texlive.net/cgi-bin/latexcgi", {
+      method: "POST",
+      body: formData,
+      // 30 seconds is plenty; TeXLive is usually very fast
+      signal: AbortSignal.timeout(30000), 
+    });
+
+    const contentType = response.headers.get("content-type");
+
+    if (!response.ok || !contentType?.includes("application/pdf")) {
+      // If it's not a PDF, TeXLive returns an HTML page with the compiler log.
+      // We'll read it just to log it on the server, but return a clean error to the user.
+      const errorHtml = await response.text();
+      console.error("LaTeX Compilation Failed (TeXLive Log):", errorHtml.substring(0, 500) + "...");
+      
       return NextResponse.json(
-        { error: "LaTeX code is required" },
+        { error: "Compilation failed. Please check your LaTeX code for syntax errors (e.g. missing brackets or unsupported packages)." },
         { status: 400 }
       );
     }
 
-    // We use latexonline.cc for compilation
-    // POST /compile is deprecated, so we use GET /compile?text=...
-    const url = `https://latexonline.cc/compile?text=${encodeURIComponent(latexCode)}&command=pdflatex`;
-
-    const response = await fetch(url, {
-      method: "GET",
-      // Some compilations take a few seconds
-      signal: AbortSignal.timeout(15000), 
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("LaTeX Compilation Failed:", errorText);
-      return NextResponse.json(
-        { error: "Compilation failed. Check your LaTeX syntax." },
-        { status: response.status }
-      );
-    }
-
-    // The response is the raw PDF binary
+    // If successful, read the raw binary PDF stream
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     
-    // We convert it to base64 so we can easily send it to the client
-    // and display it in an iframe or <object> tag
+    // Convert to base64 for easy transport to the frontend iframe
     const base64Pdf = buffer.toString("base64");
-    const dataUrl = `data:application/pdf;base64,${base64Pdf}`;
+    
+    return NextResponse.json({
+      pdfUrl: `data:application/pdf;base64,${base64Pdf}`
+    });
 
-    return NextResponse.json({ pdfUrl: dataUrl });
   } catch (error: any) {
-    console.error("API Error during compilation:", error);
+    console.error("API Error:", error);
     
     if (error.name === "TimeoutError") {
       return NextResponse.json(
-        { error: "Compilation timed out. The LaTeX code might be too complex or contain an infinite loop." },
+        { error: "The compilation service is taking too long. Please try again." }, 
         { status: 504 }
       );
     }
-
+    
     return NextResponse.json(
-      { error: "Internal server error during compilation." },
+      { error: "Internal server error during compilation." }, 
       { status: 500 }
     );
   }
